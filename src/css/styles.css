@@ -18,3 +18,30 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.country-list {
+  list-style: none;
+}
+
+.country-info {
+  list-style: none;
+}
+
+.flag {
+  width: 4%;
+  height: 4%;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.text {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.166;
+  letter-spacing: 0.03em;
+  margin-left: 15px;
+}
