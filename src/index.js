@@ -35,7 +35,7 @@ function onInput(evt) {
             }
         }
         )
-        .catch((err) => Notify.failure(`${err}`));
+        .catch((err) => Notify.failure(`${err} "Oops, there is no country with that name"`));
 };
 
 /**
