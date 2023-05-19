@@ -20,6 +20,10 @@ searchInput.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput(evt) {
     evt.preventDefault();
     let countryName = evt.target.value.trim();
+    if (!countryName) {
+        deleteMarkup();
+        return
+    }
     const urlQuery = (`${BASE_URL}/${END_POINT}/${countryName}${FILTER}`);
     fetchCountries(urlQuery)
         .then(data => {
@@ -43,7 +47,7 @@ function onInput(evt) {
  * @param {*} arr 
  * @returns HTML
  */
-export default function createMarkupCountry(arr) {
+function createMarkupCountry(arr) {
     return arr.map(({ flags: { svg }, name: { common } }) => `<li class='list'><img src="${svg}" alt="${common}" class="flag" />
     <h2 class='text'>${common}</h2></li>`).join('');
 };
@@ -53,7 +57,7 @@ export default function createMarkupCountry(arr) {
  * @param {*} arr 
  * @returns HTML
  */
-export default function createMarkupCountryInfo(arr) {
+function createMarkupCountryInfo(arr) {
     return arr.map(({ flags: { svg }, name: { common }, capital, population, languages  }) => `<li><img src="${svg}" alt="${common}" class="flag" />
     <h2>${common}</h2><h3>Capital: ${capital}</h3><h3>Popultaion: ${population}</h3><h3>Languages: ${Object.values(languages)}</h3></li>`).join('');
 };
