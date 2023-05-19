@@ -1,7 +1,5 @@
 import './css/styles.css';
 import fetchCountries from './js/fetchCountries.js';
-import createMarkupCountry from './js/createMarkup.js';
-import createMarkupCountryInfo from './js/createMarkup.js';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -24,7 +22,7 @@ function onInput(evt) {
     let countryName = evt.target.value.trim();
     const urlQuery = (`${BASE_URL}/${END_POINT}/${countryName}${FILTER}`);
     fetchCountries(urlQuery)
-        .then((data) => {
+        .then(data => {
             if (data.length === 1) {
                 deleteMarkup();
                 countryInfo.innerHTML = createMarkupCountryInfo(data);
@@ -38,6 +36,26 @@ function onInput(evt) {
         }
         )
         .catch((err) => Notify.failure(`${err}`));
+};
+
+/**
+ * drawing markup from 2 to 10 countries
+ * @param {*} arr 
+ * @returns HTML
+ */
+export default function createMarkupCountry(arr) {
+    return arr.map(({ flags: { svg }, name: { common } }) => `<li class='list'><img src="${svg}" alt="${common}" class="flag" />
+    <h2 class='text'>${common}</h2></li>`).join('');
+};
+
+/**
+ * drawing markup 1 country
+ * @param {*} arr 
+ * @returns HTML
+ */
+export default function createMarkupCountryInfo(arr) {
+    return arr.map(({ flags: { svg }, name: { common }, capital, population, languages  }) => `<li><img src="${svg}" alt="${common}" class="flag" />
+    <h2>${common}</h2><h3>Capital: ${capital}</h3><h3>Popultaion: ${population}</h3><h3>Languages: ${Object.values(languages)}</h3></li>`).join('');
 };
 
 /**
